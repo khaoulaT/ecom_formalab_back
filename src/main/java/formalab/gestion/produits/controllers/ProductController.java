@@ -14,49 +14,33 @@ import java.util.List;
 @RestController
 public class ProductController {
 
-
-    // class Arraylist implementation mn el list
-    //    public static List<Product> products= new ArrayList<>();
-    public List<Product> products= new ArrayList<>(Arrays.asList(
-            new Product(1L,"products1","desc1",100.2),
-            new Product(2L,"products2","desc1",100.2),
-            new Product(3L, "products3","desc1",100.2)
-    ));
+    @Autowired
+    private ProductService productService;
 
     @GetMapping("/products")
     public List<Product> getAllProducts(){
         //ken m taamlch new iraja3lek error null !!!!
-        return products;
+        //productService = new ProductService();// t3awadhha bel autowired
+        return productService.findAll();
     }
 
     @GetMapping("/product/{id}")
     public Product getProductById(@PathVariable Long id){
-        for (Product product: this.products){
-            if (product.getId() == id ){
-                return product;
-            }
-        }
-        return null; // !!!! 404 NOT FOUND
+        return  productService.findById(id);
     }
 
     //le produit est envoyer dans le BODY de la requete (RequestBody)
     //le produit vas etre envoyé sous format JSON !!! (NOT AS OBJECT)
     @PostMapping("/products")
     public Product createNewProduct(@RequestBody Product product){
-        products.add(product);
+        productService.save(product);
         //insert to db
         return product;
     }
 
     @DeleteMapping("/product/{id}")
-    public  List<Product> deleteProduct(@PathVariable Long id){
-        for (Product product: products){
-            if (product.getId() == id){
-                products.remove(product);
-                break;
-            }
-        }
-        return products;
+    public  void deleteProduct(@PathVariable Long id){
+         productService.delete(id);
     }
 
 }
