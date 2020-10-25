@@ -12,33 +12,34 @@ import java.util.List;
 
 //@Component
 @RestController
+@RequestMapping("/api/v1/products")
 public class ProductController {
 
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/products")
+    @GetMapping(value = {"","/"})
     public List<Product> getAllProducts(){
         //ken m taamlch new iraja3lek error null !!!!
         //productService = new ProductService();// t3awadhha bel autowired
         return productService.findAll();
     }
 
-    @GetMapping("/product/{id}")
+    @GetMapping("/{id}")
     public Product getProductById(@PathVariable Long id){
         return  productService.findById(id);
     }
 
     //le produit est envoyer dans le BODY de la requete (RequestBody)
     //le produit vas etre envoyé sous format JSON !!! (NOT AS OBJECT)
-    @PostMapping("/products")
+    @PostMapping(value = {"","/"})
     public Product createNewProduct(@RequestBody Product product){
         productService.save(product);
         //insert to db
         return product;
     }
 
-    @DeleteMapping("/product/{id}")
+    @DeleteMapping("/{id}")
     public  void deleteProduct(@PathVariable Long id){
          productService.delete(id);
     }
