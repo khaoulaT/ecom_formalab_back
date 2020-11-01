@@ -7,22 +7,22 @@ import java.util.Date;
 import java.util.List;
 
 public class ValidatorError {
+
     private List<String> errors;
+
     private String uri;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date timestamp;
-
 
     public void addError(String error){
         errors.add(error);
     }
 
-    //constructor without param
-    public ValidatorError() {
+    public ValidatorError() { //constructor without param
         //initialisation
         this.timestamp= new Date();
-        //hedhi bch baed ki naabi l objet m ikolish taabi f null
-        this.errors= new ArrayList<>();
+        this.errors= new ArrayList<>();//hedhi bch baed ki naabi l objet m ikolish taabi f null
     }
 
     public List<String> getErrors() {

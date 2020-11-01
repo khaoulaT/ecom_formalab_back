@@ -3,15 +3,11 @@ package formalab.gestion.produits.controllers;
 import formalab.gestion.produits.entities.Product;
 import formalab.gestion.produits.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.ReactiveQueryByExampleExecutor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 //@Component
@@ -19,13 +15,13 @@ import java.util.List;
 @RequestMapping("/api/v1/products")
 public class ProductController {
 
-    @Autowired
+    @Autowired//Don't forget it
     private ProductService productService;
 
     @GetMapping(value = {"","/"})
     public ResponseEntity<List<Product>> getAllProducts(){
-        //ken m taamlch new iraja3lek error null !!!!
-        //productService = new ProductService();// t3awadhha bel autowired
+        //We should Create new productService or it will return null as an ERROR!!
+        //productService = new ProductService();//This is REPLACED by @Autowired
         List<Product> products= productService.findAll();
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
@@ -38,11 +34,9 @@ public class ProductController {
 
     //le produit est envoyer dans le BODY de la requete (RequestBody)
     //le produit vas etre envoyé sous format JSON !!! (NOT AS OBJECT)
-    @PostMapping(value = {"","/"})
+    @PostMapping(value = {"","/"})//@Valid: Used to validate the requirement in the product entity Ex: @NotNull
     public ResponseEntity<Product> createNewProduct(@Valid @RequestBody Product product){
-
-        Product createdProduct= productService.save(product);
-        //insert to db
+        Product createdProduct= productService.save(product);//insert into db
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
 

@@ -2,25 +2,19 @@ package formalab.gestion.produits.controllers;
 
 import org.springframework.web.bind.annotation.*;
 
-//moch server aadi m iraja3ech view
-//bch iraja3lek json // si nn tajem taamel @controller akhw
-@RestController
+//RestController DON'T return view
+@RestController//@RestController to return JSON or you can just use @Controller
 public class HomeController {
-
-    //route //navig yebaath ken b methode GET // par defaut te5ou get
-//    @RequestMapping(value="/hello",methode="..get")
+    //Navigator use only GET Methods
+    //@RequestMapping(value="/hello",methode="GET")//Default Methode is GET
     @GetMapping("/hello")
-    //methode java
-    public String sayHello(){
-        //kiyebda controller aadi
-        //return "view";
-        return "say hello";
+    public String sayHello(){//methode java
+        //return "view";//If it was @Controller
+        return "Hello Everyone !";
     }
 
-    @GetMapping("/hello/{name}")
-    //autre methode pathparam
+    @GetMapping("/hello/{name}")//Methode with path parameter
     public String sayHellowithname(@PathVariable String name){
-
         return "Hello "+name;
     }
 

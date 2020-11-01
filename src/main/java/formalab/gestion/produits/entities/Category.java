@@ -14,9 +14,10 @@ public class Category {
     @NotNull(message = "Category name is required")
     private String name;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category")// relation
     private List<Product> products;
 
+    //empty constructor is a must
     public Category() {
     }
 

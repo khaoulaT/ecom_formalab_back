@@ -9,10 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ProduitsApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(ProduitsApplication.class, args);
-
-//		ProductController.products.add( new Product("products1","desc1",100.2));
-
+		//ProductController.products.add( new Product("products1","desc1",100.2));
 
 	}
 

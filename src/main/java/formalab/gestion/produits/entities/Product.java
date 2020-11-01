@@ -7,25 +7,24 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-//hedhi bch t9olou eli howa table fl db
-@Entity
-//hedhi bch tbadelou esmou
-@Table(name = "products")
-//class maj
+@Entity//annotation to tell it's an entity(DB table)
+@Table(name = "products")//To change table's name
+//class name must start with uppercase
 public class Product {
 
-    // nameProduct
-    //    @JsonIgnore//annotation pour ne pas afficher cet attribut dals le resultat Json: l'utilité pour sensitive data
+    //@JsonIgnore//annotation pour ne pas afficher cet attribut dans le resultat Json: l'utilité pour sensitive data
     @Id // @Id pour dire que cet attribut est le primary key
-    @GeneratedValue(strategy = GenerationType.AUTO) // auto increment
+    @GeneratedValue(strategy = GenerationType.AUTO) //auto increment
     private Long id;
-    //  pour changer le nom de le column
-    //  @Column(name = "product_name")
-    @NotNull(message = "name is required")
-    @Size(min = 3, message = "name must be at least 3 characters")
+
+    //@Column(name = "product_name")//pour changer le nom de le column
+    @NotNull(message = "Product name is required")
+    @Size(min = 3, message = "Product name must be at least 3 characters")
     private String name;
+
     @NotNull(message = "description is required")
     private String description;
+
     @NotNull(message = "price is required")
     private Double price;
 
@@ -38,7 +37,7 @@ public class Product {
     @JsonIgnore // bech tna7i l loup mtaa yo93ed yejbed fl category wl categ tejbd l produit pour l'infini !!
     private Category category;
 
-    //il faut un construucteur par defaut pour pouvoir envoyer l objet en RequestBody
+    //il faut un constructeur vide par defaut pour pouvoir envoyer l objet en RequestBody
     public Product(){
     }
 
@@ -49,7 +48,7 @@ public class Product {
         this.price = price;
     }
 
-    //nestaamlouha fl insert maghir id khater l id auto icrement
+    //nestaamlouha fl insert maghir id khater el id auto increment
     public Product(String name, String description, Double price) {
         this.name = name;
         this.description = description;

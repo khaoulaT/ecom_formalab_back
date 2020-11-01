@@ -13,8 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.List;
 
 //heritina mel ResponseEntityExceptionHandler
-//polymorphisme
-//dnc najmou naamlou override yaani tourethha w tbadel fiha
+//dnc najmou naamlou override yaani tourethha w tbadel fiha//polymorphisme
 @ControllerAdvice
 public class ApiExceptionsHandler extends ResponseEntityExceptionHandler {
 
