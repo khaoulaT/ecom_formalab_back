@@ -1,6 +1,7 @@
 package formalab.gestion.produits.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -10,6 +11,7 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO) // auto increment
     private Long id;
+    @NotNull(message = "Category name is required")
     private String name;
 
     @OneToMany(mappedBy = "category")

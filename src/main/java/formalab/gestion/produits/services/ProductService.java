@@ -22,8 +22,8 @@ public class ProductService {
         return productRepository.findById(id).get();
     }
 
-    public void save(Product product) {
-        productRepository.save(product);
+    public Product save(Product product) {
+        return  productRepository.save(product);
     }
 
     public void  delete(Long id) {

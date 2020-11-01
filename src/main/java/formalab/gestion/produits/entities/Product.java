@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 //hedhi bch t9olou eli howa table fl db
 @Entity
@@ -19,8 +21,12 @@ public class Product {
     private Long id;
     //  pour changer le nom de le column
     //  @Column(name = "product_name")
+    @NotNull(message = "name is required")
+    @Size(min = 3, message = "name must be at least 3 characters")
     private String name;
+    @NotNull(message = "description is required")
     private String description;
+    @NotNull(message = "price is required")
     private Double price;
 
     @Column(name = "category_id")
