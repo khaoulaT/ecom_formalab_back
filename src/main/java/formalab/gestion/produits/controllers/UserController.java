@@ -1,5 +1,8 @@
 package formalab.gestion.produits.controllers;
 
+import formalab.gestion.produits.config.JwtUtils;
+import formalab.gestion.produits.config.JwtResponse;
+import formalab.gestion.produits.config.LoginRequest;
 import formalab.gestion.produits.entities.AppUser;
 import formalab.gestion.produits.entities.Category;
 import formalab.gestion.produits.entities.Product;
@@ -8,6 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.SpringVersion;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,6 +28,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtUtils jwtUtils;
 
     @GetMapping(value = {"","/"})
     public ResponseEntity<List<AppUser>> getAllUsers(){
@@ -36,6 +51,27 @@ public class UserController {
     public ResponseEntity<AppUser> createNewUser(@Valid @RequestBody AppUser user){
         AppUser createdUser= userService.save(user);//insert to db
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/login")
+    public JwtResponse login(@RequestBody LoginRequest loginRequest){
+
+        //step 1 : authenticate
+        Authentication authentication=authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
+        );
+
+        //save to security context
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        //step2: loadUserByUsername
+        UserDetails userDetails = userService.loadUserByUsername(loginRequest.getUsername());
+
+        //step3: generate jwt token
+        String token = jwtUtils.generateToken(userDetails);
+        JwtResponse jwtResponse= new JwtResponse(token);
+
+        return jwtResponse;
     }
 
     @DeleteMapping("/{id}")

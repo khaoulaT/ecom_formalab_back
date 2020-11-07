@@ -44,8 +44,13 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         //TODO: get name and pass from DB
-        return new AppUser("khawla", passwordEncoder().encode("password"),AuthorityUtils.NO_AUTHORITIES);
+        AppUser user= userRepository.findByEmail(userName);
+        if (user == null){
+            throw  new UsernameNotFoundException("User Not Found !");
+        }
+        return user;
+//        return new AppUser("khawla", passwordEncoder().encode("password"),AuthorityUtils.NO_AUTHORITIES);
     }
 }
