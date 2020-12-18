@@ -1,20 +1,16 @@
 package formalab.gestion.produits.controllers;
 
-import formalab.gestion.produits.config.JwtUtils;
-import formalab.gestion.produits.config.JwtResponse;
-import formalab.gestion.produits.config.LoginRequest;
+import formalab.gestion.produits.security.JwtUtils;
+import formalab.gestion.produits.security.JwtResponse;
+import formalab.gestion.produits.security.LoginRequest;
 import formalab.gestion.produits.entities.AppUser;
-import formalab.gestion.produits.entities.Category;
-import formalab.gestion.produits.entities.Product;
 import formalab.gestion.produits.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.SpringVersion;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/auth")
 public class UserController {
@@ -35,13 +32,13 @@ public class UserController {
     @Autowired
     private JwtUtils jwtUtils;
 
-    @GetMapping(value = {"","/"})
+    @GetMapping("/users")
     public ResponseEntity<List<AppUser>> getAllUsers(){
         List<AppUser> users= userService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<AppUser> getUserById(@PathVariable Long id){
         AppUser user= userService.findById(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
@@ -74,7 +71,7 @@ public class UserController {
         return jwtResponse;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/users/{id}")
     public  ResponseEntity<Void> deleteUser(@PathVariable Long id){
         userService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

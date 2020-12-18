@@ -1,6 +1,6 @@
 package formalab.gestion.produits.services;
 
-import formalab.gestion.produits.Repositories.CategoryRespository;
+import formalab.gestion.produits.repositories.CategoryRespository;
 import formalab.gestion.produits.entities.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

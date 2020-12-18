@@ -23,7 +23,10 @@ public class AppUser implements UserDetails {
 
     @NotEmpty (message = "Email is required") //Or @NotNull: notnull yaani aslan m baathtouch l valeur aslan
     @Email
-    private String email;
+    private String username;
+
+    @NotEmpty (message = "Role is required")
+    private String role;
 
     @NotEmpty (message = "Name is required")
     private String name;
@@ -33,8 +36,9 @@ public class AppUser implements UserDetails {
 
     private Date created;
 
-    public AppUser(@NotEmpty @Email String email, @NotEmpty String name, @NotEmpty String password) {
-        this.email = email;
+    public AppUser(@NotEmpty @Email String username, @NotEmpty String role, @NotEmpty String name, @NotEmpty String password) {
+        this.username = username;
+        this.role = role;
         this.name = name;
         this.password = password;
         this.created= new Date();
@@ -57,12 +61,8 @@ public class AppUser implements UserDetails {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getName() {
@@ -71,6 +71,14 @@ public class AppUser implements UserDetails {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     //TODO: madhabik l get mtaa l password tetfasa5 bch m yejbdha 7ad
@@ -98,7 +106,7 @@ public class AppUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;// bch tkolou heka l login mte3k
+        return username;// bch tkolou heka l login mte3k
     }
 
     @Override

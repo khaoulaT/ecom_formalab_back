@@ -1,4 +1,4 @@
-package formalab.gestion.produits.config;
+package formalab.gestion.produits.security;
 
 public class JwtResponse {
 

@@ -28,6 +28,9 @@ public class Product {
     @NotNull(message = "price is required")
     private Double price;
 
+    @NotNull(message = "currency is required")
+    private String currency;
+
     @Column(name = "category_id")
     @JsonProperty( "category_id")
     private Long categoryId;
@@ -41,24 +44,27 @@ public class Product {
     public Product(){
     }
 
-    public Product(Long id, String name, String description, Double price) {
+    public Product(Long id, String name, String description, Double price, String currency) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.currency = currency;
     }
 
     //nestaamlouha fl insert maghir id khater el id auto increment
-    public Product(String name, String description, Double price) {
+    public Product(String name, String description, Double price, String currency) {
         this.name = name;
         this.description = description;
         this.price = price;
+        this.currency = currency;
     }
 
-    public Product(String name, String description, Double price, Category category) {
+    public Product(String name, String description, Double price, String currency, Category category) {
         this.name = name;
         this.description = description;
         this.price = price;
+        this.currency = currency;
         this.category = category;
     }
 
@@ -94,11 +100,27 @@ public class Product {
         this.price = price;
     }
 
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
     public Category getCategory() {
         return category;
     }
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }

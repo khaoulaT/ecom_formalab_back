@@ -1,4 +1,4 @@
-package formalab.gestion.produits.Repositories;
+package formalab.gestion.produits.repositories;
 
 import formalab.gestion.produits.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;

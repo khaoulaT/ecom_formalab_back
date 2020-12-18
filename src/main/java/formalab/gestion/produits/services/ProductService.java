@@ -1,8 +1,10 @@
 package formalab.gestion.produits.services;
 
-import formalab.gestion.produits.Repositories.ProductRepository;
+import formalab.gestion.produits.repositories.ProductRepository;
 import formalab.gestion.produits.entities.Product;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +21,7 @@ public class ProductService {
     }
 
     public Product findById(Long id){
-        return productRepository.findById(id).get();
+       return productRepository.findById(id).get();
     }
 
     public Product save(Product product) {

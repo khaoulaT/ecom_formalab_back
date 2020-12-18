@@ -1,4 +1,4 @@
-package formalab.gestion.produits.config;
+package formalab.gestion.produits.security;
 
 import formalab.gestion.produits.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

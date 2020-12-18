@@ -3,6 +3,7 @@ package formalab.gestion.produits.controllers;
 import org.springframework.web.bind.annotation.*;
 
 //RestController DON'T return view
+@CrossOrigin(origins = "*")
 @RestController//@RestController to return JSON or you can just use @Controller
 public class HomeController {
     //Navigator use only GET Methods

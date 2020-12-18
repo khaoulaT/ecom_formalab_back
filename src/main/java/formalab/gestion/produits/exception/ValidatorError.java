@@ -1,4 +1,4 @@
-package formalab.gestion.produits.Exception;
+package formalab.gestion.produits.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

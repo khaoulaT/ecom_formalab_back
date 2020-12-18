@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/categories")//General URL
 public class CategoryController {
@@ -38,6 +39,12 @@ public class CategoryController {
     public ResponseEntity<Category> createNewCategory(@Valid @RequestBody Category category){
         categoryService.save(category);//insert into db
         return new ResponseEntity<>(category, HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = {"","/"})
+    public ResponseEntity<Category> updateCategory(@Valid @RequestBody Category category){
+        categoryService.save(category);//insert into db
+        return new ResponseEntity<>(category, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

@@ -1,4 +1,4 @@
-package formalab.gestion.produits.config;
+package formalab.gestion.produits.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -6,14 +6,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.authentication.AuthenticationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final String[] ADMIN_ROUTES={
+            "/api/v1/auth/users/",//** means anything after the auth url
+    };
     private final String[] PUBLIC_ROUTES={
-            "/api/v1/auth/**",//** means anything after the auth url
+            "/api/v1/auth/register",
+            "/api/v1/auth/login",
     };
 
     //    AuthenticationManager import
@@ -37,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // .antMatchers(new String[]{"/api/v1/auth/login","/api/v1/auth/register"})
                 .antMatchers(PUBLIC_ROUTES).permitAll()
-                //.antMatchers(ADMIN_ROUTES).hasRole("ADM")
+                .antMatchers(ADMIN_ROUTES).hasRole("ADM")
                 .anyRequest().authenticated()
                 .and()//.httpBasic()
                 .addFilterBefore(authFilter(), UsernamePasswordAuthenticationFilter.class)

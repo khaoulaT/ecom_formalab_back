@@ -1,6 +1,5 @@
-package formalab.gestion.produits.Exception;
+package formalab.gestion.produits.exception;
 
-import org.springframework.boot.context.properties.bind.validation.ValidationErrors;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 //@Component
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/products")
 public class ProductController {
