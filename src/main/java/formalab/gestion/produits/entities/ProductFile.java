@@ -1,5 +1,8 @@
 package formalab.gestion.produits.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -19,22 +22,39 @@ public class ProductFile {
     @NotNull(message = "Image size is required")
     private long size;
 
+    @Column(name = "product_id")
+    @JsonProperty( "product_id")
+    private Long productId;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", insertable = false, updatable = false)
+    @JsonIgnore
+    private Product product;
+
     public ProductFile() {
     }
 
-    public ProductFile(String fileName, String fileDownloadUri, String fileType, long size) {
+    public ProductFile(String fileName, String fileDownloadUri, String fileType, long size, Long product) {
         this.fileName = fileName;
         this.fileDownloadUri = fileDownloadUri;
         this.fileType = fileType;
         this.size = size;
+        this.productId = product;
     }
-
-    public ProductFile(Long id, @NotNull(message = "Image name is required") String fileName, @NotNull(message = "Image URI is required") String fileDownloadUri, @NotNull(message = "Image type is required") String fileType, @NotNull(message = "Image size is required") long size) {
+    public ProductFile(String fileName, String fileDownloadUri, String fileType, long size, Product product) {
+        this.fileName = fileName;
+        this.fileDownloadUri = fileDownloadUri;
+        this.fileType = fileType;
+        this.size = size;
+        this.product = product;
+    }
+    public ProductFile(Long id, String fileName, String fileDownloadUri, String fileType, long size, Product product) {
         Id = id;
         this.fileName = fileName;
         this.fileDownloadUri = fileDownloadUri;
         this.fileType = fileType;
         this.size = size;
+        this.product = product;
     }
 
     public Long getId() {
@@ -75,5 +95,21 @@ public class ProductFile {
 
     public void setSize(long size) {
         this.size = size;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 }

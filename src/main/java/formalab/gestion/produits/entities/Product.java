@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity//annotation to tell it's an entity(DB table)
 @Table(name = "products")//To change table's name
@@ -39,6 +40,9 @@ public class Product {
     @JoinColumn(name = "category_id", insertable = false, updatable = false)
     @JsonIgnore // bech tna7i l loup mtaa yo93ed yejbed fl category wl categ tejbd l produit pour l'infini !!
     private Category category;
+
+    @OneToMany(mappedBy = "product")
+    private List<ProductFile> files;
 
     //il faut un constructeur vide par defaut pour pouvoir envoyer l objet en RequestBody
     public Product(){
@@ -122,5 +126,13 @@ public class Product {
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public List<ProductFile> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<ProductFile> files) {
+        this.files = files;
     }
 }
